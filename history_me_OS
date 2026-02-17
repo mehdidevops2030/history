@@ -780,9 +780,9 @@ ubuntu@ip-172-31-10-210:~$ history
   756  terraform init 
   757  terraform init --reconfigure
   758  terraform init -reconfigure
-  759  aws s3 mb s3://test00728 --region us-east-1
+  75
   760  .
-  761  aws s3 mb s3://test00728 --region us-east-1
+  761  aws s3 mb s3://tes
   762  ls
   763  vi s3.tf 
   764  pwd
