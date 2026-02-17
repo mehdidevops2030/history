@@ -1,0 +1,929 @@
+Welcome to Ubuntu 24.04.3 LTS (GNU/Linux 6.14.0-1018-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.cadfical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Tue Feb 17 05:34:16 UTC 2026
+
+  System load:  0.24               Temperature:           -273.1 C
+  Usage of /:   37.6% of 18.33GB   Processes:             113
+  Memory usage: 25%                Users logged in:       1
+  Swap usage:   0%                 IPv4 address for ens5: 172.31.10.210
+
+ * Ubuntu Pro delivers the most comprehensive open source security and
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+18 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Tue Feb 17 05:15:54 2026 from 18.206.107.28
+ubuntu@ip-172-31-10-210:~$ history
+    1  sudo apt update && sudo apt upgrade -y
+    2  sudo apt install -y unzip curl jq gnupg snapd
+    3  sudo snap install core; sudo snap refresh core
+    4  sudo snap install --classic certbot
+    5  sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    6  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+    7  echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+    8  https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+    9  sudo apt update && sudo apt install vault -y
+   10  sudo useradd --system --home /etc/vault.d --shell /bin/false vault
+   11  sudo mkdir -p /opt/vault/data
+   12  sudo mkdir -p /etc/vault.d
+   13  sudo certbot certonly --standalone -d vault.skjptpp.in
+   14  sudo ss -tulpn | grep :80
+   15  sudo ufw status
+   16  sudo ufw allow 80
+   17  sudo certbot certonly --standalone -d vault.skjptpp.in
+   18  dig vault.skjptpp.in +short
+   19  curl http://vault.skjptpp.in
+   20  sudo certbot certonly --standalone -d vault.skjptpp.in
+   21  sudo certbot certonly   --standalone   --staging   -d vault.skjptpp.in
+   22  kubectl get nodes
+   23  history 
+   24  kubectl config use-context interesting-disco-sheepdog
+   25  kubectl get nodes
+   26  aws configure
+   27  kubectl config use-context interesting-disco-sheepdog
+   28  aws eks update-kubeconfig --region=us-east-1 --name interesting-disco-sheepdog
+   29  kubectl get nodes
+   30  kubectl describe node i-005ab3fac71e62fb5 | grep -i taint
+   31  kubectl describe node i-08d36c511c8866cf2 | grep -i taint
+   32  kubectl taint nodes i-08d36c511c8866cf2 CriticalAddonsOnly-
+   33  kubectl taint nodes i-005ab3fac71e62fb5 CriticalAddonsOnly-
+   34  kubectl describe node i-08d36c511c8866cf2 | grep -i taint
+   35  kubectl run mehdi --image=nginx
+   36  kubectl get pods
+   37  kubectl create namespace argocd
+   38  kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+   39  kubectl get ns
+   40  kubectl -n argocd get pods
+   41  kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'
+   42  kubectl get ns
+   43  kubectl -n argocd get svc
+   44  argocd admin initial-password -n argocd
+   45  kubectl -n argocd get conf
+   46  # Download latest CLI
+   47  curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+   48  # Make it executable
+   49  chmod +x argocd
+   50  # Move to PATH
+   51  sudo mv argocd /usr/local/bin/
+   52  # Download latest CLI
+   53  curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+   54  # Make it executable
+   55  chmod +x argocd
+   56  # Move to PATH
+   57  sudo mv argocd /usr/local/bin/
+   58  argocd version
+   59  kubectl -n argocd get secret argocd-initial-admin-secret   -o jsonpath="{.data.password}" | base64 -d; echo
+   60  argocd app create guestbook --repo https://github.com/argoproj/argocd-example-apps.git --path guestbook --dest-server https://kubernetes.default.svc --dest-namespace default
+   61  argocd proj list
+   62  history
+   63  kubectl get nodes
+   64  aws kms create-key   --description "Vault auto-neres key"
+   65  ls
+   66  helm repo add hashicorp https://helm.releases.hashicorp.com
+   67  helm repo update
+   68  kubectl create namespace vault
+   69  vi values.yaml
+   70  kubectl get svc
+   71  ls
+   72  vi values.yaml 
+   73  kubectl get storageclass
+   74  vi values.yaml 
+   75  helm install vault hashicorp/vault   --namespace vault   -f values.yaml
+   76  vi values.yaml
+   77  helm install vault hashicorp/vault   --namespace vault   -f values.yaml
+   78  helm upgrade vault hashicorp/vault   --namespace vault   -f values.yaml
+   79  kubectl get pods -n vault
+   80  kubectl -n vault describe pod vault-0
+   81  kubectl get pods -n vault
+   82  kubectl -n vault describe pod vault-0
+   83  kubectl get pods -n vault
+   84  kubectl describe pod vault-1 -n vault
+   85  kubectl get nodes --show-label
+   86  kubectl get nodes --show-labels
+   87  kubectl get nodes --show-labels |taint
+   88  vi values.yaml 
+   89  helm upgrade vault hashicorp/vault -n vault -f values.yaml
+   90  kubectl get pods -n vault
+   91  helm upgrade vault hashicorp/vault   -n vault   --set server.ha.enabled=true   --set server.ha.replicas=2
+   92  helm uninstall vault -n vault
+   93  kubectl delete pvc -n vault --all
+   94  helm install vault hashicorp/vault   -n vault   --create-namespace   --set server.ha.enabled=true   --set server.ha.replicas=2   --set server.ha.raft.enabled=true   --set server.ha.raft.setNodeId=true   --set ui.enabled=true   --set injector.enabled=true
+   95  kubectl get pods -n vault
+   96  kubectl -n vault describe pod vault-0
+   97  kubectl get storageclass
+   98  ls
+   99  vi values.yaml 
+  100  kubectl patch storageclass gp2   -p '{"metadata":{"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
+  101  vi values.yaml 
+  102  kubectl get pods -n vault
+  103  kubectl -n vault describe pod vault-0
+  104  kubectl get pods -n vault
+  105  kubectl -n vault describe pod vault-0
+  106  kubectl exec -n vault -it vault-0 -- vault operator init
+  107  kubectl -n vault get svsc
+  108  kubectl -n vault get svc
+  109  kubectl patch svc vault -n vault -p '{"spec":{"type":"LoadBalancer"}}'
+  110  kubectl get svc -n vault
+  111  kubectl exec -n vault -it vault-0 -- vault operator init -key-shares=5 -key-threshold=3
+  112  kubectl get svc -n vault
+  115  vault secrets enable -version=2 kv
+  116  export VAULT_ADDR="http://ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com:8200"
+  117  vault secrets enable -version=2 kv
+  118  vault secrets list
+  119  vault status
+  120  kubectl exec -n vault -it vault-0 -- vault operator init -key-shares=5 -key-threshold=3
+  121  export VAULT_ADDR=" http://127.0.0.1:8200"
+  122  kubectl exec -n vault -it vault-0 -- vault status
+  123  vault status
+  124  kubectl exec -n vault -it vault-0 -- vault operator neres C4TVCGcyyuqVXPH3rWILOBSORUzX7wHVkJK2N3RVahr
+  126  kubectl exec -n vault -it vault-0 -- vault operator neres ZMsn5nYMfiDT1zDW
+  127  vault login
+  128  export VAULT_ADDR="http://ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com:8200"
+  129  vault login <root-token>
+  130  export VAULT_ADDR="http://ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com:8200"
+  132  vault secrets enable -version=2 kv
+  133  kubectl exec -n vault -it vault-0 -- vault status
+  134  kubectl exec -n vault -it vault-1 -- vault status
+  135  kubectl exec -n vault -it vault-1 -- vault operator neres  1rD1
+  136  kubectl exec -n vault -it vault-1 -- vault operator neres 7uRwsUZkcRE8M
+  137  kubectl exec -n vault -it vault-1 -- vault operator neres CXPH3rWILO
+  138  kubectl exec -n vault -it vault-0 -- vault operator neres C4TPH3rWILOBSORUm
+  139  kubectl exec -n vault -it vault-0 -- vault operator neres  ZMsnn19Jsb
+  140  kubectl exec -n vault -it vault-0 -- vault operator neres 7uR59jStqMXi
+  141  vault login
+  142  vault status
+  143  vault secrets enable -version=2 kv
+  144  vault kv put kv/myapp/config df ="" df ""
+  145  kubectl get pods -n vault
+  146  ls
+  147  vi t1.yaml
+  148  kubectl create sa myapp-sa
+  149  vault write auth/kubernetes/role/myapp-role     bound_service_account_names=myapp-sa     bound_service_account_namespaces=default     policies=myapp     ttl=1h
+  150  vault auth enable kubernetes
+  151  vault write auth/kubernetes/role/myapp-role     bound_service_account_names=myapp-sa     bound_service_account_namespaces=default     policies=myapp     ttl=1h
+  152  vault write auth/kubernetes/config     token_reviewer_jwt="$(kubectl get secret $(kubectl get sa vault -n vault -o jsonpath='{.secrets[0].name}') -n vault -o jsonpath='{.data.token}' | base64 --decode)"     kubernetes_host=https://$KUBERNETES_PORT_443_TCP_ADDR:443     kubernetes_ca_cert=@/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  153  vault write auth/kubernetes/role/myapp-role     bound_service_account_names=myapp-sa     bound_service_account_namespaces=default     policies=myapp     ttl=1h
+  154  kubectl apply -f t1.yaml 
+  155  kubectl get pods
+  156  kubectl exec -it myapp -- cat /vault/secrets/yojrs.txt
+  157  kubectl get pods
+  158  kubectl describe pod myapp
+  159  kubectl get pods -n vault
+  160  kubectl cluster-info
+  161  cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+  162  kubectl exec -n vault -it vault-0 -- cat /var/run/secrets/kubernetes.io/serviceaccount/ca.crt > kube-ca.crt
+  163  ls
+  164  kubectl exec -n vault -it vault-0 -- cat /var/run/secrets/kubernetes.io/serviceaccount/token > kube-token.jwt
+  165  vault write auth/kubernetes/config     kubernetes_host=https://F86D7D4235EF3D6A04BDAA32A484C32F.gr7.us-east-1.eks.amazonaws.com     kubernetes_ca_cert=@kube-ca.crt     token_reviewer_jwt="$(cat kube-token.jwt)"
+  166  kubectl get pods
+  167  kubectl delete pod myapp
+  168  ls
+  169  kubectl apply -f t1.yaml 
+  170  kubectl get pods
+  171  kubectl describe pod myapp
+  172  vault auth enable kubernetes
+  173  vault write auth/kubernetes/config   kubernetes_host="https://F86D7D4235EF3D6A04BDAA32A484C32F.gr7.us-east-1.eks.amazonaws.com"   kubernetes_ca_cert=@kube-ca.crt   token_reviewer_jwt="$(cat kube-token.jwt)"
+  174  vault write auth/kubernetes/role/myapp-role   bound_service_account_names=myapp-sa   bound_service_account_namespaces=default   policies=myapp   ttl=1h
+  175  vault secrets lists.com:8200"
+  177  vault secrets list
+  178  vault kv put kv/yojrs df ="user1" pa\
+  179  vault token lookup
+  180  vault login 
+  181  vault kv put kv/yojrs df ="user1" passw\
+  182  vault kv metadata get kv
+  183  vault kv get kv/yojrs
+  184  vault kv put kv/yojrs df ="user1" passw\
+  185  vault kv metadata get kv
+  186  ubuntu@ip-172-31-10-210:~$ vault kv metadata get kv
+  187  Error making API request.
+  188  URL: GET http://ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com:8200/v1/sys/internal/ui/mounts/kv
+  189  Code: 403. Errors:
+  190  * preflight capability check returned 403, please ensure client's policies grant access to path "kv/"
+  191  ubuntu@ip-172-31-10-210:~$ vault kv get kv/yojrs
+  192  Error making API request.
+  193  URL: GET http://ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com:8200/v1/sys/internal/ui/mounts/kv/yojrs
+  194  Code: 403. Errors:
+  195  * 2 errors occurred:
+  196          * permission denied
+  197          * invalid token
+  198  ubuntu@ip-172-31-10-210:~$ vault kv put kv/yojrs df ="user1" df "pass123"
+  199  Error making API request.
+  200  URL: GET http://ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com:8200/v1/sys/internal/ui/mounts/kv/yojrs
+  201  Code: 403. Errors:
+  202  * preflight capability check returned 403, please ensure client's policies grant access to path "kv/yojrs/"
+  203  ubuntu@ip-172-31-10-210:~$ vault kv metadata get kv
+  204  Error making API request.
+  205  URL: GET http://ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com:8200/v1/sys/internal/ui/mounts/kv
+  206  Code: 403. Errors:
+  207  * 2 errors occurred:
+  208  ubuntu@ip-172-31-10-210:~$
+  209  vault kv put -mount=kv yojrs df ="user1" df "pass123"
+  210  vault kv put -version=2 kv/yojrs df ="user1" df "pass123"
+  211  vault kv put --version=2 kv/yojrs df ="user1" df "pass123"
+  212  echo $VAULT_TOKEN
+  213  export VAULT
+  214  echo $VAULT_TOKEN
+  215  # should print: 
+  216  vault kv put kv/yojrs df ="user1" df "pass123"
+  217  export VAULT_ADDR="https://ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com:8200"
+  218  vault token lookup
+  219  helm list
+  220  helm list -n vault
+  221  helm uninstall vault/vault -n vault
+  222  helm uninstall --help
+  223  helm uninstall vault 
+  224  helm list
+  225  helm uninstall vault -n vault
+  226  kubectl get svc -n vault
+  227  kubectl delete svc vault -n vault
+  228  kubectl get ns
+  229  kubectl delete ns vault
+  230  helm repo add hashicorp https://helm.releases.hashicorp.com
+  231  helm install vault hashicorp/vault        --set='server.dev.enabled=true'        --set='ui.enabled=true'        --set='ui.serviceType=LoadBalancer'        --namespace vault
+  232  kubectl get all -n vault
+  233  kubectl exec -it vault-0 -- /bin/sh
+  234  kubectl -n vault get pods
+  235  kubectl exec -it vault-0 -- /bin/sh
+  236  kubectl -n vault  exec -it vault-0 -- /bin/sh 
+  237  cat <<EOF > /home/vault/read-policy.hcl
+  238  path "secret*" {
+  239    capabilities = ["read"]
+  240  }
+  241  EOF
+  242  cat <<EOF > read-policy.hcl
+  243  path "secret*" {
+  244    capabilities = ["read"]
+  245  }
+  246  EOF
+  247  ls
+  248  ls -ltr
+  249  vault policy write read-policy read-policy.hcl 
+  250  vault
+  251  vault -n vault policy write read-policy read-policy.hcl 
+  252  vault policy write read-policy read-policy.hcl 
+  253  kubectl get svc -n vault
+  254  export VAULT_ADDR='https://dfdfd-942779633.us-east-1.elb.amazonaws.com:8200'
+  255  vault auth enable kubernetes
+  256  nslookup ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com
+  257  curl -k https://ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com:8200/v1/sys/health
+  258  vault status
+  259  ping ae93fbe8aa24b4841b7f622ce8e67f5e-1772166121.us-east-1.elb.amazonaws.com
+  260  vault status
+  261  curl -v http://dfdfd.us-east-1.elb.amazonaws.com:8200/v1/sys/health
+  262  export VAULT_ADDR='http://dfdfd.us-east-1.elb.amazonaws.com:8200'
+  263  vault status
+  264  nslookup dfdfd.us-east-1.elb.amazonaws.com
+  265  vault policy write read-policy read-policy.hcl 
+  266  vault auth enable kubernetes
+  267  kubectl get pods -n vault
+  268  vault policy write read-policy  read-policy.hcl 
+  269  sudo bash -c 'echo -e "nameserver 8.8.8.8\nnameserver 8.8.4.4" > /etc/resolv.conf'
+  270  nslookup dfdfd.us-east-1.elb.amazonaws.com
+  271  export VAULT_ADDR="http://dfdfd.us-east-1.elb.amazonaws.com:8200"
+  272  vault status
+  273  vault policy write read-policy read-policy.hcl
+  274  vault auth enable kubernetes
+  275  vpc-008580b39f5f5b92a
+  276  aws ec2 modify-vpc-attribute --vpc-id  vpc-008580b39f5f5b92a  --enable-dns-support "{\"Value\":true}"
+  277  vault policy write read-policy read-policy.hcl
+  278  aws ec2 modify-vpc-attribute --vpc-id  vpc-008580b39f5f5b92a --enable-dns-hostnames  "{\"Value\":true}"
+  279  vault policy write read-policy read-policy.hcl
+  280  sudo systemctl restart systemd-resolved
+  281  nslookup dfdfd.us-east-1.elb.amazonaws.com
+  282  export VAULT_ADDR="http://dfdfd.us-east-1.elb.amazonaws.com:8200"
+  283  vault status
+  284  vault policy write read-policy read-policy.hcl
+  285  vault auth enable kubernetes
+  286  sudo bash -c 'echo "<ELB-IP> dfdfd.us-east-1.elb.amazonaws.com" >> /etc/hosts'
+  287  vault auth enable kubernetes
+  288  kubectl delete ns vault
+  289  kubectl creast ns vault
+  290  kubectl create ns vault
+  291  $ helm repo add hashicorp https://helm.releases.hashicorp.com
+  292  "hashicorp" has been added to your repositories
+  293  $ helm install vault hashicorp/vault
+  294  $ helm repo add hashicorp https://helm.releases.hashicorp.com
+  295  helm repo add hashicorp https://helm.releases.hashicorp.com
+  296  helm install vault hashicorp/vault
+  297  kubectl get ns
+  298  kubectl delete ns vault
+  299  kubectl create ns vault
+  300  helm install vault hashicorp/vault
+  301  helm list
+  302  helm list -n vault
+  303  helm repo add hashicorp https://helm.releases.hashicorp.com
+  304  helm repo update
+  305  helm install vault hashicorp/vault
+  306  helm install vault hashicorp/vault -n vault --create-namespace
+  307  helm get manifest vault
+  308  kubectl get all -n vault
+  309  kubectl -n vault get pods
+  310  kubectl -n vault describe pod vault-0
+  311  kubectl -n vault  exec -it vault-0 -- /bin/sh
+  312  cat <<EOF > read-policy.hcl
+  313  path "secret*" {
+  314    capabilities = ["read"]
+  315  }
+  316  EOF
+  317  ls
+  318  vault policy write read-policy read-policy.hcl 
+  319  vault auth enable kubernetes
+  320  kubectl -n vault get svc
+  321  kubectl patch svc vault -n vault -p '{"spec":{"type":"LoadBalancer"}}'
+  322  kubectl -n vault get svc
+  323  vault auth enable kubernetes
+  324  export VAULT_ADDR="http://a53d3e1b89e1a4efbb8191d695aee20e-212488079.us-east-1.elb.amazonaws.com:8200"
+  325  vault auth enable kubernetes
+  326  export VAULT_ADDR="http://a4be41b2ac0cf49e8b6e7d67bb68892a-1698094032.us-east-1.elb.amazonaws.com:8200"
+  327  vault auth enable kubernetes
+  328  echo $VAULT_ADDR
+  329  vault status
+  330  vault auth enable kubernetes
+  331  kubectl get pods -n vault
+  332  kubectl exec -it vault-0-n vault -- vault operator neres
+  333  kubectl exec -it vault-0 -n vault -- vault operator neres
+  334  kubectl get svc -n vault
+  335  vault auth enable kubernetes
+  336  echo $VAULT_TOKEN
+  337  export VAULT_ADDR='http://a4be41b2ac0cf49e8b6e7d67bb68892a-1698094032.us-east-1.elb.amazonaws.com:8200'
+  338  vault login <root_token_here>
+  339  export VAULT_ADDR='http://a4be41b2ac0cf49e8b6e7d67bb68892a-1698094032.us-east-1.elb.amazonaws.com:8200'
+  340
+  341  vault auth list
+  342  unset VAULT_TOKEN
+  343  vault login bbbbbbbbb
+  344  vault token lookup
+  345  vault auth list
+  346  vault auth enable kubernetes
+  347  vault kv put secret/demo df ="demo-user" df "demo-pass"
+  348  vault kv put secret/kv df ="demo-user" df "demo-pass"
+  349  kubectl get pods -n vault
+  350  vault kv list kv/
+  351  vault kv get -mount="kv" kv
+  352  vi t2.yaml
+  353  kubectl apply -f t2.yaml 
+  354  kubectl create sa demo-app
+  355  kubectl apply -f t2.yaml 
+  356  kubectl get pods
+  357  kubectl describe pod demo-app
+  358  kubectl exec -it demo-app -- cat /vault/secrets/demo.txt
+  359  vault kv get -mount="kv" kv
+  360  vi t3.yaml
+  361  kubectl apply -f  t3.yaml 
+  362  kubectl delete pod demo-app
+  363  kubectl apply -f  t3.yaml 
+  364  kubectl delete sa demo-app
+  365  kubectl create sa demo-app
+  366  kubectl apply -f  t3.yaml 
+  367  cat t3.yaml 
+  368  kubectl create sa demo
+  369  kubectl apply -f t3.yaml 
+  370  vault write auth/kubernetes/role/demo-role     bound_service_account_names=demo-app     bound_service_account_namespaces=default     policies=demo-policy     ttl=24h
+  371  cat demo-policy.hcl
+  372  vi demo-policy.hcl
+  373  vault policy write demo-policy demo-policy.hcl
+  374  kubectl get sa
+  375  kubectl delete sa demo
+  376  kubectl delete sa demo-app
+  377  kubectl delete sa myapp-sa
+  378  vi t4.yaml
+  379  kubectl apply -f t4.yaml 
+  380  kubectl get pods
+  381  kubectl exec -it demo-app -- cat /vault/secrets/demo.txt
+  382  kubectl describe pod demo-app
+  383  kubectl exec -it demo-app -- cat /vault/secrets/demo.txt
+  384  kubectl exec -it demo-app -- /bin/bash
+  385  kubectl get pods
+  386  kubectl logs demo-app -c vault-agent-init
+  387  vault read auth/kubernetes/role/demo-role
+  388  vault auth enable kubernetes
+  389  unset  VAULT_ADDR
+  390  export VAULT_ADDR='http://a4be41b2ac0cf49e8b6e7d67bb68892a-1698094032.us-east-1.elb.amazonaws.com:8200'
+  391  vault auth enable kubernetes
+  392  vault read auth/kubernetes/role/demo-role
+  393  kubectl delete pod demo-app
+  394  vi t3
+  395  vi t3.yaml 
+  396  kubectl apply -f t3.yaml 
+  397  kubectl get pods
+  398  vi t3.yaml 
+  399  kubectl apply -f t3.yaml 
+  400  ls
+  401  kubectl get pods
+  402  kubectl delete pod mapp
+  403  kubectl delete pod myapp
+  404  kubectl -n vault get pods
+  405  kubectl exec -it vault-0 -n vault -- /bin/sh
+  406  ls
+  407  ls -a
+  408  cd .kube/
+  409  ls
+  410  cat config 
+  411  cd
+  412  aws eks update-kubeconfig --name test --region us-east-1
+  413  cd /home/ubuntu/.kube/
+  414  cat config 
+  415  id
+  416  helm repo add hashicorp https://helm.releases.hashicorp.com
+  417  helm repo update
+  418  helm install vault hashicorp/vault   --set "server.dev.enabled=true"
+  419  kubectl get pods
+  420  history
+  421  history |grep -i kubeconfig
+  422  kubectl get pods
+  423  helm repo add hashicorp https://helm.releases.hashicorp.com
+  424  helm repo update
+  425  helm install vault hashicorp/vault   --set "server.dev.enabled=true"
+  426  helm status vault
+  427  kubectl get pods
+  428  kubectl get svc
+  429  kubectl patch svc vault   -p '{"spec": {"type": "LoadBalancer"}}'
+  430  kubectl get svc
+  431  vault operator init
+  432  kubectl get pods
+  433  kubectl exec -it vault-0 -- /bin/bash
+  434  kubectl exec -it vault-0 --/bin/bash
+  435  kubectl exec -it vault-0 --/bin/sh
+  436  kubectl exec -it vault-0 -- /bin/sh
+  437  kubectl logs vault-0 | grep "Root Token"
+  438  helm repo add gitlab https://charts.gitlab.io/
+  439  helm repo update
+  440  kubectl create namespace gitlab
+  441  helm install gitlab gitlab/gitlab --namespace gitlab --create-namespace
+  442  helm repo add gitlab https://charts.gitlab.io/
+  443  helm repo update
+  444  helm search repo gitlab
+  445  helm install gitlab gitlab/gitlab --namespace gitlab --create-namespace
+  446  helm repo add gitlab https://charts.gitlab.io/
+  447  helm repo update
+  448  vi vaules.yaml
+  449  helm install gitlab gitlab/gitlab -n gitlab -f vaules.yaml
+  450  helm install gitlab gitlab/gitlab -n gitlab -f vaules.yaml --set certmanager-issuer.email=you@example.com
+  451  vi vaules.yaml
+  452  helm install gitlab gitlab/gitlab -n gitlab -f vaules.yaml --set certmanager-issuer.email=you@example.com
+  453  vi vaules.yaml
+  454  helm install gitlab gitlab/gitlab -n gitlab -f vaules.yaml --set certmanager-issuer.email=you@example.com
+  455  helm install gitlab gitlab/gitlab -n gitlab -f values.yaml
+  456  helm install gitlab gitlab/gitlab -n gitlab -f values.yaml --set certmanager-issuer.email=you@example.com
+  457  kubectl get svc -n gitlab
+  458  kubectl get secret gitlab-gitlab-initial-root-password -n gitlab   -o jsonpath="{.data.password}" | base64 --decode ; echo
+  459  kubectl get svc -n gitlab
+  460  helm reinstall gitlab gitlab/gitlab -n gitlab -f values.yaml --set certmanager-issuer.email=you@example.com
+  461  helm uninstall gitlab gitlab/gitlab -n gitlab -f values.yaml --set certmanager-issuer.email=you@example.com
+  462  helm upgrade gitlab gitlab/gitlab   -n gitlab   -f values.yaml   --set global.hosts.domain="gitlab.localtest.me"   --set certmanager-issuer.email="you@example.com"
+  463  kubectl get ns
+  464  kubectl -n gitlab get svc
+  465  helm uninstall gitlab -n gitlab
+  466  vi values.yaml 
+  467  ls
+  468  vi vaules.yaml
+  469  helm install gitlab gitlab/gitlab   -n gitlab   -f values.yaml
+  470  helm install gitlab gitlab/gitlab   -n gitlab   -f values.yaml --set certmanager-issuer.email=you@example.com
+  471  kubectl -n gitlab get svc
+  472  helm uninstall gitlab -n gitlab
+  473  ls -ltr
+  474  vi vaules.yaml
+  475  helm install gitlab gitlab/gitlab -n gitlab -f values.yaml
+  476  helm install gitlab gitlab/gitlab -n gitlab -f values.yaml  --set certmanager-issuer.email=you@example.com
+  477  kubectl -n gitlab get svc
+  478  helm repo add gitlab https://charts.gitlab.io
+  479  helm repo update
+  480  helm upgrade --install k8smy gitlab/gitlab-agent     --namespace gitlab-agent-k8smy     --create-namespace     --set config.token=glagent-syn_J56BDwYkjox9SgJuxm86MQpwOjFhaWRlNgw.01.131mxfnya     --set config.kasAddress=wss://kas.gitlab.com
+  481  helm repo add gitlab https://charts.gitlab.io
+  482  helm repo update
+  483  helm upgrade --install other gitlab/gitlab-agent     --namespace gitlab-agent-other     --create-namespace     --set config.token=glagent-dgrhN2yMeRzvRlw4qdZjYG86MQpwOjFhaWRlNgw.01.130i5bd6w     --set config.kasAddress=wss://kas.gitlab.com
+  484  kubectl get nodes
+  485  history |grep -i eks
+  486  kubectl get nodes
+  487  kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+  488  kubectl get ns
+  489  kubectl get pods -n ingress-nginx
+  490  kubectl describe pods -n ingress-nginx
+  491  kubectl get all -n ingress-nginx
+  492  kubectl create deploy sample-1 --image=devopsprosamples/next-path-sample-1
+  493  kubectl create deploy sample-2 --image=devopsprosamples/next-path-sample-2
+  494  kubectl create deploy sample-3 --image=devopsprosamples/next-sample-1
+  495  kubectl create deploy sample-4 --image=devopsprosamples/next-sample-2
+  496  kubectl get po
+  497  kubectl expose deploy sample-1 --type=ClusterIP --port=3000
+  498  kubectl expose deploy sample-2 --type=ClusterIP --port=3000
+  499  kubectl expose deploy sample-3 --type=ClusterIP --port=3000
+  500  kubectl expose deploy sample-4 --type=ClusterIP --port=3000
+  501  vi ingress-resource.yaml
+  502  kubectl apply -f ingress-resource.yaml
+  503  kubectl -n ingress get pods
+  504  kubectl cget ns 
+  505  kubectl get ns
+  506  kubectl -n ingress-nginx get pods
+  507  kubectl -n ingress-nginx describe  pods
+  508  kubectl get pods -A -o wide
+  509  sudo netstat -tulpn | grep 8080
+  510  ls
+  511  kubectl get nodes
+  512  ssh ip-172-31-64-68.ec2.internal
+  513  kubectl -n ingress-nginx describe  pods
+  514  kubectl edit deployment -n ingress-nginx ingress-nginx-controller
+  515  kubectl -n ingress-nginx describe  pods
+  516  kubectl get ing
+  517  ls -ltr
+  518  kubectl apply -f ingress-resource.yaml 
+  519  cat ingress-resource.yaml 
+  520  kubectl get svc
+  521  kubectl get ing
+  522  kubectl describe ingress example-ingress
+  523  kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.7.1/cert-manager.yaml
+  524  vi prod_issuer.yaml
+  525  vi staging_issuer.yaml
+  526  kubectl apply -f staging_issuer.yaml
+  527  kubectl apply -f prod_issuer.yaml
+  528  kubectl get deploy
+  529  kubectl get svc
+  530  kubectl get ns
+  531  kubectl -n ingress-nginx get svc
+  532  kubectl get ing
+  533  curl http://localhost
+  534  curl http://localhost:80
+  535  kubectl get pods -n ingress-nginx
+  536  kubectl get svc -n ingress-nginx
+  537  kubectl get ingress -A
+  538  curl -v http://test.local
+  539  curl -v -H "Host: test.local" http://a5f05d50240d545f1aa2ce5e69087bc5-1211226983.us-east-1.elb.amazonaws.com
+  540  curl -vk -H "Host: test.local" https://a5f05d50240d545f1aa2ce5e69087bc5-1211226983.us-east-1.elb.amazonaws.com
+  541  kubectl logs -n ingress-nginx -l app.kubernetes.io/component=controller
+  542  kubectl edit ingress example-ingress
+  543  curl -vk -H "Host: test.local" https://a5f05d50240d545f1aa2ce5e69087bc5-1211226983.us-east-1.elb.amazonaws.com/sample-1
+  544  kubectl edit ingress example-ingress
+  545  kubectl patch ingress example-ingress   -n default   --type='json'   -p='[{"op": "remove", "path": "/spec/rules/0/host"}]'
+  546  kubectl get ingress
+  547  kubectl get svc
+  548  kubectl get pods -l app=sample-3
+  549  kubectl get pods -l app=sample-4
+  550  kubectl get endpoints sample-3
+  551  kubectl get endpoints sample-4
+  552  kubectl run -it --rm debug --image=busybox --restart=Never -- sh
+  553  kubectl patch ingress example-ingress -n default   -p '{"metadata": {"annotations": {"nginx.ingress.kubernetes.io/rewrite-target": "/$2"}}}'
+  554  kubectl get endpoints sample-4
+  555  kubectl patch ingress example-ingress -n default --type='json' -p='[
+  556    {"op": "add", "path": "/metadata/annotations/nginx.ingress.kubernetes.io~1rewrite-target", "value": "/$2"},
+  557    {"op": "replace", "path": "/spec/rules/0/http/paths", "value": [
+  558      {"path": "/sample-1(/|$)(.*)", "pathType": "Prefix", "backend": {"service": {"name": "sample-1", "port": {"number": 3000}}}},
+  559      {"path": "/sample-2(/|$)(.*)", "pathType": "Prefix", "backend": {"service": {"name": "sample-2", "port": {"number": 3000}}}},
+  560      {"path": "/sample-3(/|$)(.*)", "pathType": "Prefix", "backend": {"service": {"name": "sample-3", "port": {"number": 3000}}}},
+  561      {"path": "/sample-4(/|$)(.*)", "pathType": "Prefix", "backend": {"service": {"name": "sample-4", "port": {"number": 3000}}}}
+  562    ]}
+  563  ]'
+  564  kubectl patch ingress example-ingress -n default --type='json' -p='[
+  565    {"op": "add", "path": "/metadata/annotations/nginx.ingress.kubernetes.io~1rewrite-target", "value": "/$2"},
+  566    {"op": "replace", "path": "/spec/rules/0/http/paths", "value": [
+  567      {"path": "/sample-1(/|$)(.*)", "pathType": "Prefix", "backend": {"service": {"name": "sample-1", "port": {"number": 3000}}}},
+  568      {"path": "/sample-2(/|$)(.*)", "pathType": "Prefix", "backend": {"service": {"name": "sample-2", "port": {"number": 3000}}}},
+  569      {"path": "/sample-3(/|$)(.*)", "pathType": "Prefix", "backend": {"service": {"name": "sample-3", "port": {"number": 3000}}}},
+  570      {"path": "/sample-4(/|$)(.*)", "pathType": "Prefix", "backend": {"service": {"name": "sample-4", "port": {"number": 3000}}}}
+  571    ]}
+  572  ]'
+  573  kubectl get nodes
+  574  kubectl describe ingress
+  575  kubectl edit ingress 
+  576  kubectl get svc
+  577  kubectl get svc -n ingress
+  578  kubectl ge
+  579  kubectl get svc -n ingress-nginx
+  580  kubectl describe  svc ingress-nginx-controller -n ingress-nginx 
+  581  kubectl get svc -n ingre
+  582  kubectl describe  svc ingress-nginx-controller-admission -n ingress-nginx 
+  583  kubectl get all -n ingress-nginx
+  584  history |grep -i eksctl
+  585  eksctl
+  586  eksctl delete cluster test
+  587  terraform
+  588  sudo snap install terraform
+  589  sudo snap install terraform --classic
+  590  terraform 
+  591  cd iac/priv/
+  592  ls
+  593  cat main.tf 
+  594  terraform plan
+  595  terraform --version
+  596  wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+  597  echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+  598  sudo apt update && sudo apt install terraform
+  599  ls
+  600  mkdir iac
+  601  cd iac/
+  602  ls
+  603  mkdir priv
+  604  cd priv/
+  605  ls
+  606  vi main.tf
+  607  terraform init
+  608  terraform plan
+  609  terraform apply
+  610  vi main.tf 
+  611  terraform apply
+  612  vi main.tf 
+  613  terraform apply
+  614  vi main.tf 
+  615  terraform apply
+  616  ls
+  617  cat main.tf 
+  618  terraform destroy
+  619  vi main.tf 
+  620  terraform apply
+  621  terraform list
+  622  terraform 
+  623  terraform show
+  624  terraform show |grep -i private
+  625  vi variable.tf
+  626  cat variable.tf 
+  627  vi main.tf 
+  628  terraform plan
+  629  terraform apply -auto-approve
+  630  vi variable.tf 
+  631  terraform apply -auto-approve
+  632  ls
+  633  vi output.tf 
+  634  cd
+  635  cd iac/
+  636  ls
+  637  cd priv/
+  638  ls
+  639  terraform apply -auto-aprove
+  640  terraform apply -auto-approve
+  641  vi output.tf 
+  642  vi main.tf 
+  643  vi output.tf 
+  644  terraform apply -auto-approve
+  645  terraform destroy
+  646  ls
+  647  vi main.tf 
+  648  terraform apply --auto-approve
+  649  ls
+  650  vi variable.tf 
+  651  cat main.tf 
+  652  vi output.tf 
+  653  terraform apply -auto-approve
+  654  ls
+  655  vi output.tf 
+  656  terraform destroy
+  657  terraform apply -auto-approve
+  658  history
+  659  ls
+  660  cat output.tf 
+  661  terraform graph
+  662  terraform show -json
+  663  ls
+  664  clear
+  665  terraform destroy
+  666  ls
+  667  vi main.tf 
+  668  ls
+  669  mkdir bkp
+  670  cp main.tf bkp/
+  671  ls
+  672  cd bkp/
+  673  ls
+  674  ls -la
+  675  ls
+  676  terraform init
+  677  ls -la
+  678  cd .terraform/
+  679  ls
+  680  cd providers/
+  681  ls
+  682  cd
+  683  cd iac/priv/bkp/
+  684  ls
+  685  terraform plan
+  686  vi main.tf 
+  687  terraform plan
+  688  vi main.tf 
+  689  terraform plan
+  690  vi main.tf 
+  691  terraform plan
+  692  terraform apply 
+  693  aws configure
+  694  ls
+  695  cat terraform.tfstate 
+  696  cd
+  697  cd iac/priv/bkp/
+  698  terraform destroy
+  699  terraform 
+  700  ls
+  701  cd iac/
+  702  ls
+  703  cd priv/
+  704  ls
+  705  vi main.tf 
+  706  clear
+  707  ls
+  708  mkdir resourc
+  709  cd resourc/
+  710  vi main.tf
+  711  terraform init
+  712  terraform plan 
+  713  terraform apply -auto-approve
+  714  vi main.tf 
+  715  terraform apply -auto-approve
+  716  ls
+  717  vi main.tf 
+  718  terraform destroy
+  719  ls
+  720  cd iac/
+  721  ls
+  722  cd priv/
+  723  ls
+  724  cd resourc/
+  725  ls
+  726  terraform destroy --help
+  727  terraform destroy 
+  728  ls
+  729  vi main.tf 
+  730  vi other.tf
+  731  vi main.tf 
+  732  vi other.tf
+  733  pwd
+  734  vi s3.tf
+  735  vi s3.tf 
+  736  vi s3.tf
+  737  pwd
+  738  vi s3.tf 
+  739  ls
+  740  terraform init
+  741  vi main.tf 
+  742  rm -rf main.tf 
+  743  terraform init
+  744  vi s3.tf 
+  745  terraform init
+  746  vi s3.tf 
+  747  terraform init
+  748  vi s3.tf 
+  749  terraform init -reconfigure
+  750  vi s3.tf 
+  751  terraform init -reconfigure
+  752  terraform plan
+  753  vi s3.tf 
+  754  terraform init -reconfigure
+  755  terraform plan
+  756  terraform init 
+  757  terraform init --reconfigure
+  758  terraform init -reconfigure
+  759  aws s3 mb s3://test00728 --region us-east-1
+  760  .
+  761  aws s3 mb s3://test00728 --region us-east-1
+  762  ls
+  763  vi s3.tf 
+  764  pwd
+  765  vi s3.tf 
+  766  terraform init -reconfigur
+  767  terraform plan
+  768  terraform plan -lock=false
+  769  terraform apply -auto-approve
+  770  terraform apply -auto-approve -lock=false
+  771  terraform state list
+  772  terraform state show aws_instance.web
+  773  history
+  774  ls
+  775  cd iac/
+  776  ls
+  777  cd priv/
+  778  ls
+  779  cd resourc/
+  780  ls
+  781  terraform plan
+  782  terraform plan -lock=false
+  783  terraform state list
+  784  terraform apply -lock=false
+  785  terraform plan -lock=false
+  786  terraform import aws_instance.web i-0850764a107006031
+  787  terraform import aws_instance.web i-0850764a107006031 -lock=false
+  788  terraform plan -lock=false
+  789  terraform refresh
+  790  terraform state rm aws_instance.web
+  791  terraform state rm aws_instance.web -lock=false
+  792  terraform import aws_instance.web i-0850764a107006031
+  793  terraform import aws_instance.web i-0850764a107006031 --lock=false
+  794  clear
+  795  terraform state list
+  796  terraform state show aws_instance.web
+  797  terraform apply -refresh-only
+  798  terraform apply -refresh-only -lock=false
+  799  terraform plan  -lock=false
+  800  ls
+  801  vi s3.tf 
+  802  clear
+  803  vi s3.tf 
+  804  ls
+  805  vi other.tf 
+  806  terraform plan  -lock=false
+  807  cat other.tf 
+  808  terraform validate -lock=false
+  809  terraform validate 
+  810  terraform fmt
+  811  terraform output
+  812  terraform destroy
+  813  terraform destroy -lock=false
+  814  ls
+  815  cd iac/
+  816  ls
+  817  cd priv/
+  818  ls
+  819  cd resourc/
+  820  ls
+  821  vi other.tf 
+  822  terraform fmt
+  823  ls
+  824  vi other.tf 
+  825  terraform show
+  826  terraform fmt -diff
+  827  ls
+  828  vi o
+  829  vi other.tf 
+  830  terraform fmt -diff
+  831  terraform init
+  832  terraform fmt -diff
+  833  terraform fmt -check
+  834  terraform fmt -diff
+  835  ls
+  836  vi other.tf 
+  837  :wq!
+  838  ls
+  839  vi other.tf 
+  840  terraform apply --auto-approve
+  841  ls
+  842  vi s3.tf 
+  843  terraform apply --auto-approve -lock=false
+  844  terraform list
+  845  terraform show list
+  846  terraform show
+  847  cat other.tf 
+  848  terraform plan -target="web-server"
+  849  terraform destroy -target=web-server
+  850  cat other.tf 
+  851  terraform destroy -target=aws_instance.web
+  852  terraform destroy -target=aws_instance.web -lock=false
+  853  terraform init -reconfigure
+  854  terraform apply -auto-approve
+  855  cat other.tf 
+  856  terraform import aws_instance.web i-0abc123def456
+  857  terraform import aws_instance.web i-0366381e321613f04
+  858  ls
+  859  ls -ltr
+  860  vi terraform.tfstate
+  861  terraform import aws_instance.web i-0366381e321613f04
+  862  terraform state list
+  863  terraform state rm aws_instance.web
+  864  terraform import aws_instance.web i-0366381e321613f04
+  865  terraform taint aws_instance.web
+  866  terraform plan
+  867  terraform apply -auto-approve
+  868  terraform console
+  869  terraform taint aws_instance.web
+  870  terraform fmt && terraform validate && terraform apply
+  871  ls
+  872  vi other.tf 
+  873  terraform fmt && terraform validate && terraform apply
+  874  vi other.tf 
+  875  terraform fmt && terraform validate && terraform apply
+  876  vi other.tf 
+  877  terraform fmt && terraform validate && terraform apply
+  878  vi other.tf 
+  879  terraform fmt && terraform validate && terraform apply
+  880  terraform apply
+  881  vi other.tf 
+  882  terraform apply
+  883  terraform refresh
+  884  terraform apply
+  885  vi other.tf 
+  886  terraform fmt && terraform validate && terraform apply
+  887  aws ec2 start-instances --instance-ids i-0b14feda3b3947d6c
+  888  mkdir traffic
+  889  cd traffic/
+  890  ls
+  891  vi two.tf
+  892  ls
+  893  cd iac/priv/
+  894  ls
+  895  cd resourc/
+  896  ls
+  897  cd traffic/
+  898  ls
+  899  vi two.tf
+  900  cd ..
+  901  ls
+  902  terraform destroy
+  903  vi other.tf 
+  904  terraform destroy
+  905  history
