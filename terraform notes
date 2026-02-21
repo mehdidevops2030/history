@@ -1,0 +1,8 @@
+What is a Provider?
+A Provider is a plugin that Terraform uses to interact with cloud platforms, SaaS providers, and other APIs. Providers are responsible for understanding API interactions and exposing resources.
+Key Concepts
+•	Providers are distributed separately from Terraform itself
+•	Each provider adds a set of resource types and/or data sources
+•	Providers are downloaded during terraform init
+•	Multiple instances of the same provider can be configured using aliases
+--------------------------------------------------
