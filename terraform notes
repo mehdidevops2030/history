@@ -44,3 +44,18 @@ terraform.tfvars file
 terraform.tfvars.json file
 *.auto.tfvars or *.auto.tfvars.json files
 -var and -var-file command line options
+---------------------------------------
+Terraform Output Variables
+What are Output Variables?
+Output variables expose information about your infrastructure on the command line and 
+can share data between Terraform modules. 
+They are useful for:
+Displaying important resource attributes after apply
+Passing data between modules
+Providing information for external scripts or automation
+Best Practices
+Always add descriptions to outputs for documentation
+Mark sensitive outputs appropriately
+Use meaningful names that describe the value
+Group related outputs together
+Use outputs for module interfaces to expose necessary data
