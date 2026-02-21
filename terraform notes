@@ -74,3 +74,12 @@ Reference computed attributes in outputs for visibility
 Use splat expressions for resources with count
 Use for expressions for resources with for_each
 Check documentation for all available attributes
+------------------------
+What are Resource Dependencies?
+Resource dependencies define the order in which Terraform creates, updates, or destroys resources. Terraform uses dependencies to build a dependency graph and determine the correct order of operations.
+
+Types of Dependencies
+Implicit Dependencies: Automatically created when you reference resource attributes
+  vpc_id     = aws_vpc.main.id    # <-- This creates an implicit dependenc
+Explicit Dependencies: Manually specified using depends_on
+Use depends_on when there's a dependency that Terraform can't automatically detect.
