@@ -59,3 +59,18 @@ Mark sensitive outputs appropriately
 Use meaningful names that describe the value
 Group related outputs together
 Use outputs for module interfaces to expose necessary data
+---------------------------------------------------
+Terraform Resource Attributes
+What are Resource Attributes?
+Resource attributes are the properties of infrastructure resources that Terraform manages. There are two types:
+
+Arguments: Values you set to configure the resource ( like a instance id creation)
+Attributes: Values that are computed/returned by the provider after resource creation
+( getting auto created like public ip ,You reference them, not set them)
+
+Best Practices
+Use attributes for dependencies instead of hardcoding values
+Reference computed attributes in outputs for visibility
+Use splat expressions for resources with count
+Use for expressions for resources with for_each
+Check documentation for all available attributes
