@@ -5,4 +5,9 @@ Key Concepts
 •	Each provider adds a set of resource types and/or data sources
 •	Providers are downloaded during terraform init
 •	Multiple instances of the same provider can be configured using aliases
+Best Practices
+Always pin provider versions to avoid unexpected changes
+Use environment variables for credentials instead of hardcoding
+Use provider aliases for multi-region deployments
+Document provider requirements in your README
 --------------------------------------------------
