@@ -20,3 +20,27 @@ terraform.tfvars
 terraform.tfvars.json
 *.auto.tfvars
 *.auto.tfvars.json
+When a variable is marked as sensitive:
+
+Its value won't be shown in CLI output
+It won't appear in plan output
+Still stored in state file (encrypt your state!)
+Variable Validation
+variable "instance_type" {
+  description = "EC2 instance type"
+  type        = string
+  default     = "t2.micro"
+
+  validation {
+    condition     = contains(["t2.micro", "t2.small", "t2.medium"], var.instance_type)
+    error_message = "Instance type must be t2.micro, t2.small, or t2.medium."
+  }
+}
+
+Variable Precedence (Lowest to Highest)
+Default values in variable declaration
+Environment variables (TF_VAR_*)
+terraform.tfvars file
+terraform.tfvars.json file
+*.auto.tfvars or *.auto.tfvars.json files
+-var and -var-file command line options
