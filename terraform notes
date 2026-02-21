@@ -83,3 +83,16 @@ Implicit Dependencies: Automatically created when you reference resource attribu
   vpc_id     = aws_vpc.main.id    # <-- This creates an implicit dependenc
 Explicit Dependencies: Manually specified using depends_on
 Use depends_on when there's a dependency that Terraform can't automatically detect.
+Dependency Order
+Creation Order
+Resources are created from leaves to root of the dependency tree:
+
+Resources with no dependencies first
+Then resources that depend on those
+Continue until all resources are created
+Destruction Order
+Resources are destroyed in reverse order:
+
+Resources that nothing depends on first
+Then their dependencies
+Continue until all resources are destroyed
