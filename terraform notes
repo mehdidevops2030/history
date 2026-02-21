@@ -11,3 +11,12 @@ Use environment variables for credentials instead of hardcoding
 Use provider aliases for multi-region deployments
 Document provider requirements in your README
 --------------------------------------------------
+What are Input Variables?
+Input variables serve as parameters for a Terraform module, allowing customization without altering the module's source code. They make your configurations reusable and flexible.
+ Auto-loaded Variable Files
+Terraform automatically loads:
+
+terraform.tfvars
+terraform.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
