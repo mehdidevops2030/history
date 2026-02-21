@@ -96,3 +96,27 @@ Resources are destroyed in reverse order:
 Resources that nothing depends on first
 Then their dependencies
 Continue until all resources are destroyed
+------------------------------------------------
+What is Terraform State?
+Terraform state is a critical file that maps your configuration to real-world resources. It tracks:
+
+Which resources Terraform manages
+Resource metadata and attributes
+Dependencies between resources
+The current state of your infrastructure
+State and terraform plan
+When you run terraform plan, Terraform:
+
+Reads the state file
+Refreshes state (queries real infrastructure)
+Compares configuration to state
+Shows what changes are needed
+
+State File Best Practices
+Never edit state manually - Use terraform state commands
+Always use remote state for team projects
+Enable state locking to prevent conflicts
+Encrypt state at rest and in transit
+Back up state regularly
+Use separate state per environment
+Restrict access to state files
