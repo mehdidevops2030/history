@@ -142,3 +142,6 @@ Types of Version Constraints
 Terraform Core Version
 Provider Versions
 Module Versions
+------------------------------------------
+What is .terraform.lock.hcl?
+The lock file records the exact provider versions used, ensuring consistent deployments.
