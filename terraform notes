@@ -120,3 +120,14 @@ Encrypt state at rest and in transit
 Back up state regularly
 Use separate state per environment
 Restrict access to state files
+--------------------------------------------------
+What are Meta-Arguments?
+Meta-arguments are special arguments that can be used with any resource type to change its behavior. They are not specific to any provider.
+
+Available Meta-Arguments
+Meta-Argument	Purpose
+count	Create multiple instances of a resource
+for_each	Create multiple instances based on a map or set
+depends_on	Explicitly specify dependencies
+provider	Select a specific provider configuration
+lifecycle	Customize resource lifecycle
