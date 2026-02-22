@@ -1,0 +1,100 @@
+Managing and Debugging a Production Environment
+==============================================
+Use top, htop, vmstat, or sar to monitor system performance (CPU, memory, disk I/O).
+
+Check dmesg for hardware errors or kernel messages.
+
+Investigate system logs (e.g., /var/log/syslog, /var/log/messages).
+
+Check for resource limits using ulimit.
+
+Look at network performance using tools like netstat or ss.
+
+Run strace on the application to see system calls and resource usage.
+
+Review server load balancing and scaling strategies (e.g., horizontal vs. vertical scaling).
+
+If necessary, check the database performance (e.g., query bottlenecks).
+
+Handling a Full Disk Scenario
+==============================================================================
+First, identify large files or directories using du -sh * or ncdu.
+
+Investigate log files (/var/log) that may be consuming space and consider rotating them or archiving old logs.
+
+Use df to check disk usage and lsof to find processes holding onto files.
+
+Implement log rotation with logrotate to prevent future log buildup.
+
+If needed, clean up old packages using apt-get autoremove or yum clean.
+
+Consider adding more disk space or migrating data to external storage solutions.
+
+System Performance Tuning
+================================
+
+Start with basic system metrics using top, htop, vmstat, iostat, and free.
+
+Analyze web server logs for issues using apachectl or nginx -t.
+
+Optimize TCP settings with sysctl for better network performance.
+
+Use nginx or apache tuning parameters like worker_processes or KeepAliveTimeout.
+
+Review the application’s code or database queries for optimization.
+
+Use caching mechanisms (e.g., Varnish, Redis) to reduce load.
+
+Consider setting up CDNs for static content delivery.
+
+Server Resource Exhaustion
+===================================================
+Check memory usage with free -m and identify processes with top or htop.
+
+Use ps aux --sort=-%mem to find the most memory-consuming processes.
+
+If a specific process is leaking memory, restart it or increase its resource allocation.
+
+Consider adding swap space temporarily or optimize the application to consume less memory.
+
+Use ulimit to adjust memory limits or adjust service configurations to prevent memory overuse.
+
+Slow Application Performance
+===========================================
+
+Start by reviewing the web server logs for errors.
+
+Use top or htop to check for high CPU usage or resource contention.
+
+Review database performance by checking slow queries in MySQL or PostgreSQL logs.
+
+Use strace on the application to see system calls.
+
+Check network latency using ping or traceroute.
+
+
+Service Not Starting
+===========================
+
+Check service status with systemctl status <service>.
+
+Review service-specific logs with journalctl -xe or /var/log/<service>.log.
+
+Look for common issues like missing dependencies or file permissions.
+
+Use strace or lsof to investigate any system calls or open files the service might be stuck on.
+
+Check disk space with df or memory usage with free.
+
+Disk Full on Production Server
+=============================
+
+Run df -h to identify which partition is full.
+
+Use du -sh /path/to/dir/* to find large directories or files.
+
+Clean up old logs or temporary files in /var/log and /tmp.
+
+Use lsof to find processes holding onto deleted files and clear them.
+
+
