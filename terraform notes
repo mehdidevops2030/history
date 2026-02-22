@@ -145,3 +145,20 @@ Module Versions
 ------------------------------------------
 What is .terraform.lock.hcl?
 The lock file records the exact provider versions used, ensuring consistent deployments.
+=====================================================================================
+Remote State and State Locking
+Why Remote State?
+Local state files have limitations:
+
+Not shareable among team members
+No locking mechanism
+Risk of data loss
+Sensitive data on local machines
+Remote state solves these problems by storing state in a shared, secure location.
+
+Remote State Benefits
+Team Collaboration: Multiple team members can work together
+State Locking: Prevents concurrent modifications
+Encryption: Secure storage of sensitive data
+Versioning: Track changes over time
+Backup: Automatic backups in most backends
