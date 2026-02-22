@@ -131,3 +131,14 @@ for_each	Create multiple instances based on a map or set
 depends_on	Explicitly specify dependencies
 provider	Select a specific provider configuration
 lifecycle	Customize resource lifecycle
+----------------------------------------------------------------------
+Why Version Constraints?
+Version constraints ensure:
+
+Consistent behavior across team members
+Protection from breaking changes
+Reproducible infrastructure deployments
+Types of Version Constraints
+Terraform Core Version
+Provider Versions
+Module Versions
